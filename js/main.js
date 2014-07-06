@@ -1,3 +1,5 @@
+var SLL = {};
+
 var cities;
 
 var LAT = 1;
@@ -71,10 +73,40 @@ function findCities(targetCity, direction, distance) {
 }
 
 function displayCities(cities) {
-  $('#foundCities').empty();
-  for (var i = 0; i < cities.length; i++) {
-    var c = cities[i];
-    console.log(c);
-    $('#foundCities').append('<li>' + c.city + ' (' + c.lat + ', ' + c.lon + ')</li>');
-  }
+  console.log(cities);
+  
+  // unordered list
+//  $('#foundCities').empty();
+//  for (var i = 0; i < cities.length; i++) {
+//    var c = cities[i];
+//    console.log(c);
+//    $('#foundCities').append('<li>' + c.city + ' (' + c.lat + ', ' + c.lon + ')</li>');
+//  }
+  
+  // mapped
+  var g = SLL.svg.selectAll('g.city').data(cities);
+  
+  // create new `g` elements for the city point and label
+  var enter = g.enter().append('g').attr('class', 'city');
+  
+  enter.append('circle')
+      .attr('r', 5)
+      .attr('cx', 0)
+      .attr('cy', 0);
+  
+  enter.append('text')
+      .attr('x', 10)
+      .attr('dy', 5);
+  
+  // set the position of the new and existing `g`s
+  g.attr('transform', function(d) { 
+    var xy = SLL.projection([d.lon, d.lat]);
+    return 'translate(' + xy[0] + ',' + xy[1] + ')';
+  });
+  
+  g.selectAll('text')
+      .text(function(d) { return d.city; });
+  
+  // remove extra `g`s
+  g.exit().remove();
 }
