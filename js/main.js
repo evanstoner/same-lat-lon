@@ -2,9 +2,6 @@ var SLL = {};
 
 var cities;
 
-var LAT = 1;
-var LON = 2;
-
 $(function() {
   loadCities();
   $('#search').click(search_click);
@@ -41,29 +38,14 @@ function search_click(e) {
   
   //TODO: error checking for distance
   
-  if (dir === 'lat') {
-    foundCities = findCities(city, LAT, distance);
-  } else {
-    foundCities = findCities(city, LON, distance); 
-  }
+  foundCities = findCities(city, distance);
   
   displayCities(foundCities);
 }
 
-function findCities(targetCity, direction, distance) {
+function findCities(targetCity, distance) {
   var filteredCities = cities.filter(function(city) {
-    var targetLoc;
-    var loc;
-    
-    if (direction === LAT) {
-      targetLoc = targetCity.lat;
-      loc = city.lat;
-    } else {
-      targetLoc = targetCity.lon;
-      loc = city.lon;
-    }
-    
-    if (Math.abs(targetLoc - loc) <= distance) {
+    if (Math.abs(targetCity.lat - city.lat) <= distance || Math.abs(targetCity.lon - city.lon) <= distance) {
       return true;
     } else {
       return false;
@@ -74,16 +56,7 @@ function findCities(targetCity, direction, distance) {
 
 function displayCities(cities) {
   console.log(cities);
-  
-  // unordered list
-//  $('#foundCities').empty();
-//  for (var i = 0; i < cities.length; i++) {
-//    var c = cities[i];
-//    console.log(c);
-//    $('#foundCities').append('<li>' + c.city + ' (' + c.lat + ', ' + c.lon + ')</li>');
-//  }
-  
-  // mapped
+
   var g = SLL.svg.selectAll('g.city').data(cities);
   
   // create new `g` elements for the city point and label
