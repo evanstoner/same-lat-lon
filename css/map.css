@@ -1,6 +1,6 @@
 .graticule {
   fill: none;
-  stroke: #777;
+  stroke: #888;
   stroke-width: .5px;
   stroke-opacity: .5;
 }
@@ -16,11 +16,12 @@
 }
 
 g.city circle {
-  fill: white;
-  stroke: black;
+  fill: #e91e63;
+  stroke: #fff;
   stroke-width: 1px;
 }
 
 g.city text {
-  fill: red;
+  fill: #fff;
+  font-size: 12px;
 }

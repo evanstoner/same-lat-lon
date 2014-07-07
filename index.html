@@ -6,83 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>same-lat-lon</title>
 
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/page.css">
     <link rel="stylesheet" href="css/map.css">
-<!--    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">-->
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
   <body>
     <div class="content">
-      <div class="row">
-        <div class="col-md-12">
-          <h1>same-lat-lon <small>Finds cities in nearby latitudes or longitudes.</small></h1>
-        </div>
-      </div>
+      <h1>same-lat-lon</h1>
       
-      <div class="row">
-        <div class="col-md-6">
-          <form class="form-horizontal">
-            <div class="form-group">
-              <label for="city" class="col-sm-4 control-label">City</label>
-              <div class="col-sm-8">
-                <select name="city" id="city" class="form-control">
-                </select>
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label for="city" class="col-sm-4 control-label">Direction</label>
-              <div class="col-sm-8">
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="direction" id="lat" value="lat" checked>
-                    Latitude
-                  </label>
-                </div>
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="direction" id="lon" value="lon">
-                    Longitude
-                  </label>
-                </div>
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label for="city" class="col-sm-4 control-label">Distance (degrees)</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" id="distance" value="1">
-              </div>
-            </div>
-            
-            <div class="col-sm-8 col-sm-offset-4">
-              <button id="search" class="btn btn-primary">Search</button>
-            </div>
-          </form>
-        </div>
-        
-        <div class="col-sm-6">
-          <ul id="foundCities">
-            
-          </ul>
-        </div>
-      </div>
+      <h2>Finds cities in nearby latitudes or longitudes.</h2>
       
-      <div class="row">
-        <div class="col-md-12">
-          <svg id="map"></svg>
-        </div>
+      <label for="city">City</label>
+      <select name="city" id="city" class="form-control">
+      </select>
+            
+      <label for="city">Direction</label>
+      <div class="radio">
+        <label>
+          <input type="radio" name="direction" id="lat" value="lat" checked>
+          Latitude
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="direction" id="lon" value="lon">
+          Longitude
+        </label>
+      </div>
+            
+      <label for="city">Distance (degrees)</label>
+      <input type="text" id="distance" value="1">
+      
+      <div class="buttonContainer">
+        <button id="search" class="btn btn-primary">Search</button>
       </div>
     </div>
+      
+    <div class="mapContainer">
+      <svg id="map"></svg>
+    </div>  
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="http://d3js.org/topojson.v1.min.js"></script>
     <script src="js/main.js"></script>
