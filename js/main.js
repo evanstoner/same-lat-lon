@@ -4,7 +4,12 @@ var cities;
 
 $(function() {
   loadCities();
+  
+  $('#closedBox').hide();
+  
   $('#search').click(search_click);
+  $('#hideBox').click(hideBox_click);
+  $('#showBox').click(showBox_click);
 });
   
 function loadCities() {
@@ -57,29 +62,73 @@ function findCities(targetCity, distance) {
 function displayCities(cities) {
   console.log(cities);
 
-  var g = SLL.svg.selectAll('g.city').data(cities);
+  var g = SLL.svg.selectAll('g.city').data(cities)
+      
   
-  // create new `g` elements for the city point and label
+  // create new `g` container elements for the city point and label
   var enter = g.enter().append('g').attr('class', 'city');
   
-  enter.append('circle')
+  var newCircles = enter.append('circle')
       .attr('r', 5)
       .attr('cx', 0)
       .attr('cy', 0);
   
-  enter.append('text')
-      .attr('x', 10)
-      .attr('dy', 5);
-  
-  // set the position of the new and existing `g`s
+  // set/update the position of the `g`s
   g.attr('transform', function(d) { 
     var xy = SLL.projection([d.lon, d.lat]);
     return 'translate(' + xy[0] + ',' + xy[1] + ')';
-  });
+  }).sort(function(a, b) { return b.lon - a.lon; }) // avoid text appearing under circles by placing right to left
+      .order();
   
-  g.selectAll('text')
-      .text(function(d) { return d.city; });
+  // show/hide the city name on mouseover/out
+  newCircles.on('mouseover', function(d) {
+    // add the text and fade it in
+    var parent = d3.select(this.parentNode);
+    
+    parent.append('text')
+      .text(d.city)
+      .attr('class', 'shadow')
+      .attr('x', 13)
+      .attr('dy', 5)
+      .attr('opacity', 0);
+    
+    parent.append('text')
+      .text(d.city)
+      .attr('x', 13)
+      .attr('dy', 5)
+      .attr('opacity', 0);
+    
+    parent.selectAll('text')
+      .transition().attr('opacity', 1)
+    
+    // expand the cirlce
+    d3.select(this).transition().attr('r', 8).ease('elastic');
+  }).on('mouseout', function() {
+    // remove the text
+    d3.select(this.parentNode).selectAll('text')
+      .transition().attr('opacity', 0).remove();
+    
+    // contract the circle
+    d3.select(this).transition().attr('r', 5).ease('elastic');
+    
+  });
   
   // remove extra `g`s
   g.exit().remove();
+}
+
+function hideBox_click() {
+  var width = $('#searchBox').width()
+  var height = $('#searchBox').outerHeight()
+  $('#closedBox').css({ width: width, top: -height + 'px' });
+  $('#searchBox').animate({ top: -height + 'px' }, 200, function() {
+    $('#closedBox').show().animate({ top: '0px' }, 200);
+  });
+}
+
+function showBox_click() {
+  var height = $('#searchBox').outerHeight()
+  $('#closedBox').animate({ top: -height + 'px' }, 200, function() {
+    $('#searchBox').animate({ top: '0px' }, 200);
+  });
 }

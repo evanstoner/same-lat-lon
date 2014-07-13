@@ -16,6 +16,20 @@ div.content {
   padding: 10px;
 }
 
+a.corner-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #c0c0c0;
+  font-size: 18px;
+  text-decoration: none;
+  line-height: 16px;
+}
+
+a.corner-button:hover {
+  color: #fff;
+}
+
 h1, h2 {
   font-weight: normal;
   margin-top: 0px;

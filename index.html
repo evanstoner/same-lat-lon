@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="css/map.css">
   </head>
   <body>
-    <div class="content">
+    <div id="searchBox" class="content">
+      <a id="hideBox" href="#" class="corner-button">&times;</a>
       <h1>same-lat-lon</h1>
       
       <h2>Finds cities in nearby latitudes or longitudes.</h2>
@@ -25,6 +26,11 @@
       <div class="buttonContainer">
         <button id="search" class="btn btn-primary">Search</button>
       </div>
+    </div>
+     
+    <div id="closedBox" class="content">
+      <h1>same-lat-lon</h1>
+      <a href="#" id="showBox" class="corner-button" style="top: initial; bottom: 5px">+</a>
     </div>
       
     <div class="mapContainer">

@@ -19,9 +19,15 @@ g.city circle {
   fill: #e91e63;
   stroke: #fff;
   stroke-width: 1px;
+  z-index: 100;
 }
 
 g.city text {
   fill: #fff;
   font-size: 12px;
+}
+
+g.city text.shadow {
+  stroke: #222;
+  stroke-width: 2px;
 }
